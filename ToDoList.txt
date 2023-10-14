@@ -1,0 +1,94 @@
+         1.Create Object when using
+         2.Can chat by use socketio 
+
+ 3: For chatting        
+         3.0 Find and add new friend
+         3.0.1 When double and wait for adding, make other status line circle.
+         3.1 When chat from only 1 side, other can save chat correctly.
+         3.2 Add send heart message
+        3.3 Auto generate chat and make a sound when start chat form 1 side.
+         3.3.1 Use push notification to get notification from web to mobile.
+         3.4 InsertUser API run too much.
+         3.5 When create new chat, enable blue color in new friend.
+         3.5.1 Product is slow-> Make waiting status
+         3.6 In create new chat, if already existed-> open chat conversation.
+         3.6.1 In search for new friend, if already friend-> after double click-> open current conversation.
+         3.7 !BUG Can create double new chat as the same friend.
+         3.7 Short AlignItem flow newest conversation.
+         3.8 BUG When show conversation first time, chat always on the top.
+         3.9 When typing, change Icon from 'heart' to 'send' Icon
+         3.10 BUG double when click new friend.
+         3.11 Add save localStorage to load faster.
+         BUG 3.11.1 Control other devices when save localStorage add last time : useSessionStorage
+         3.12 Push notification: just work in Android and computer browser.
+         3.12.1 Update can push notification if user is not in conversation(computer).
+         3.12.2 BUG Insert Too Many User
+         BUG 3.12.3 Can't not push notification correctly after 15minutes.
+         BUG 3.12.4 Turn off Onesignal bug show in devtools(F12).(Skip)
+         3.13 BUG Message can't go up when typing new message.
+         3.14 BUG When load msg again(because it't saved in sessionStorage)
+         3.15 disabled textInput when loading in conversation
+         3.16 Use Ably when create new conversation.
+         3.17 Sent image in conversation.
+         3.18 Auto load 5  (from top) conversation.
+         3.18 Fix bug can't not load message in conversation.
+         3.19 Change save in session storage to local storage.
+         3.19.1 Make UI more smoothly and fast: check if data in local storage=>get data from database.
+         3.19.2 Add Icon in 5s
+         3.19.3 Check load data message.
+         BUG 3.19.4 Check to load message in connection.
+         3.19.5 Change load data when loadingPage 
+        3.20 When create new conversation, change check DB ways, make it more smoothly and faster.
+3.19 When scroll up, load more 20 messages.
+BUG 3.20 Can't show AlignItemsList in firstly loading.
+
+        
+4.Add responsive and add button for Mobile, big desktop:50%
+        4.1 Set height for all devices mobile:conversation
+        4.2 BUG Icon add member group place is wrong:  =>can't see out
+        4.3 Change scroll control all project: Left 2/2
+        4.4 Change scroll control all project
+        4.5 Change: set color by radio button
+
+
+5.Can make group chat 
+         5.1 Create layout for add members group chat.
+         5.2 Resolve data for members group chat: chat group name, photo url, memberImg.
+         5.3 Make back button return in conversation.
+5.4 Just update members in already group conversation(>3 members)
+         5.5 Upload image for group.
+        BUG 5.6 BUG when add member group and back, user data is lost
+
+
+6.Security for API by JWT.
+  *JWT security flow:
+        1.Login google account => return access_token to client and save refresh_token vs access_token at server.
+        1.1 access_token: 30 minutes, refresh_token: 3 days.
+        2.Save JWT at localStorage.
+        3.Every call API, add JWT to header(Bearer token) to validate API
+        3.1 Just logout when after loadingPage=> just authenticate here and authorization in every request: add header.
+        4.Decode JWT to check authorization by email
+        (only A email can edit, delete data relative A email)    
+        5.If JWT is invalid and refresh_token still valid, check refresh_token and create new access_token and refresh_token.
+        6.If JWT and refresh_token is invalid => Logout
+       7.When click logout => delete access_token at client and re at server.
+8.Add access_token to request getGroupData by email a
+TODO:9.Fix bug can't load data in phone.
+7.Refractory code: make it easy to understand and opening!
+        7.1 Fix bug when create new conversion: 
+        7.2 BUG when create second conversion, ably can send anyone
+        7.3 BUG when create new conversion, conversation component..
+        7.4 Fix bug when add member to group:back button,
+        7.5 When the first load, can't load member list.
+        7.6 Problem "loadingTextInputFlag" show text.
+        7.7 When upload IMG, position of % NG
+        7.8 In Desktop, click conversion but data not load
+        7.9 Save listUser to LocalStorage.
+        8.Fix middleware to deploy in vercel.
+        9.Change socketio to Ably  
+        9.1 BUG Refactoring when using Ably: call API too much.
+        10.Fix bug insert User in mobile
+
+8.Add chatGPT to chat or analytics data, BTC price,..
+        8.1 Add chatPGT to group chat just for chat.
+8.2 BUG chatPGT just answer only simple message.

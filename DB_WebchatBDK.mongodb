@@ -1,0 +1,403 @@
+const database = 'test';
+const collection = 'Users';
+
+// Create a new database.
+use(database);
+
+// Create a new collection.
+db.createCollection(collection);
+show collections
+
+db.Users.find().pretty()
+
+db.Users.deleteMany({ email : null })
+
+mongoexport --collection=test --db=reporting --out=events.json
+
+mongodb+srv://binhhu:Matkhau123@cluster0.unchest.mongodb.net/test
+
+mongoexport --db test --collection Users --out C:\Users\USER\OneDrive\Documents\exportstudents.json 
+db.Chats.drop()
+db.Users.drop()
+
+db.collection(Users);
+
+db.Users.insertMany([
+ 
+  {
+    email: 'QuynhChi@gmail.com',
+    fullname: 'Quỳnh Chi',
+    nickname: 'Quỳnh Chi',
+    last_active: Timestamp({ t: 1677408356, i: 10 }),
+    isOnline: true,
+    photoUserUrl: 'https://images.pexels.com/photos/1308881/pexels-photo-1308881.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1'
+  },
+  {
+    email: 'ngoclan@gmail.com',
+    fullname: 'Ngọc Lan',
+    nickname: 'Ngọc Lan',
+    last_active: Timestamp({ t: 1677408356, i: 12 }),
+    isOnline: false,
+    photoUserUrl: 'https://images.pexels.com/photos/6105852/pexels-photo-6105852.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1'
+  },
+  {
+    email: 'hienho@gmail.com',
+    fullname: 'Nguyen Van Thai Binh',
+    nickname: 'hienho',
+    last_active: Timestamp({ t: 1677408356, i: 13 }),
+    isOnline: false,
+    photoUserUrl: 'https://antimatter.vn/wp-content/uploads/2022/11/hinh-anh-gai-xinh-viet-nam.jpg'
+  },
+  {
+    email: 'thaomai@gmail.com',
+    fullname: 'Thảo Mai',
+    nickname: 'Thảo Mai',
+    last_active: Timestamp({ t: 1677408356, i: 14 }),
+    isOnline: false,
+    photoUserUrl: 'https://luv.vn/wp-content/uploads/2021/06/hinh-anh-gai-viet-nam-xinh-dep-46.jpg'
+  },
+  {
+    email: 'Thuynhien@gmail.com',
+    fullname: 'Nguyen Van Thai Binh',
+    nickname: 'Thuỳ Nhiên',
+    last_active: Timestamp({ t: 1677408356, i: 15 }),
+    isOnline: false,
+    photoUserUrl: 'https://luv.vn/wp-content/uploads/2021/06/hinh-anh-gai-viet-nam-xinh-dep-39.jpg'
+  },
+  {
+    email: 'lanphuong@gmail.com',
+    fullname: 'Nguyen Van Thai Binh',
+    nickname: 'Lan Phương',
+    last_active: Timestamp({ t: 1677408356, i: 16 }),
+    isOnline: false,
+    photoUserUrl: 'https://meliawedding.com.vn/wp-content/uploads/2022/05/gai-xinh-mac-do-thieu-vai-5.jpg'
+  },
+  {
+    email: 'ngoctrinh@gmail.com',
+    fullname: 'Le Anh Khoa',
+    nickname: 'ngoc trinh',
+    last_active: Timestamp({ t: 1677408356, i: 17 }),
+    isOnline: true,
+    photoUserUrl: 'https://meliawedding.com.vn/wp-content/uploads/2022/05/gai-xinh-mac-do-thieu-vai-29.jpg'
+  },
+  {
+    email: 'minhhang@gmail.com',
+    fullname: 'Nguyen Van Thai Binh',
+    nickname: 'minh hang',
+    last_active: Timestamp({ t: 1677408356, i: 18 }),
+    isOnline: false,
+    photoUserUrl: 'https://meliawedding.com.vn/wp-content/uploads/2022/05/gai-xinh-mac-do-thieu-vai-3.jpg'
+  },
+  {
+    email: 'kimthanh123@gmail.com',
+    fullname: 'Nguyen Van Thai Binh',
+    nickname: 'Kim Thanh',
+    last_active: Timestamp({ t: 1677408356, i: 19 }),
+    isOnline: false,
+    photoUserUrl: 'https://gaixinhbikini.com/wp-content/uploads/2022/08/dj-jenny-yen.jpg'
+  },
+  {
+    email: 'hanggiang123@gmail.com',
+    fullname: 'Nguyen Van Thai Binh',
+    nickname: 'Hằng Giang',
+    last_active: Timestamp({ t: 1677408356, i: 20 }),
+    isOnline: false,
+    photoUserUrl: 'https://meliawedding.com.vn/wp-content/uploads/2022/05/gai-xinh-mac-do-thieu-vai-34.jpg'
+  },
+  {
+    email: 'ngocchau@gmail.com',
+    fullname: 'Nguyen Van Thai Binh',
+    nickname: 'Ngọc Châu',
+    last_active: Timestamp({ t: 1677408356, i: 21 }),
+    isOnline: false,
+    photoUserUrl: 'https://gaixinhbikini.com/wp-content/uploads/2022/08/gai-dep-toc-dai-mac-bikini-7.jpg'
+  },
+  {
+    email: 'Tramanh123@gmail.com',
+    fullname: 'Nguyen Van Thai Binh',
+    nickname: 'Trâm Anh',
+    last_active: Timestamp({ t: 1677408356, i: 22 }),
+    isOnline: false,
+    photoUserUrl: 'https://gaixinhbikini.com/wp-content/uploads/2022/08/baifern-kunthada-8.jpg'
+  },
+  {
+    email: 'hungnguyen@gmail.com',
+    fullname: 'Nguyen Van Thai Binh',
+    nickname: 'anh Hung',
+    last_active: Timestamp({ t: 1677408356, i: 23 }),
+    isOnline: false,
+    photoUserUrl: 'https://meliawedding.com.vn/wp-content/uploads/2022/05/gai-xinh-mac-do-thieu-vai-18-1.jpg'
+  },
+  {
+    email: 'thuylinh@gmail.com',
+    fullname: 'Nguyen Van Thai Binh',
+    nickname: 'Thuỳ Linh',
+    last_active: Timestamp({ t: 1677408356, i: 24 }),
+    isOnline: false,
+    photoUserUrl: 'https://meliawedding.com.vn/wp-content/uploads/2022/05/gai-xinh-mac-do-thieu-vai-16-1.jpg'
+  },
+  {
+    email: 'anhthu123@gmail.com',
+    fullname: 'Nguyen Van Thai Binh',
+    nickname: 'Anh Thư',
+    last_active: Timestamp({ t: 1677408356, i: 25 }),
+    isOnline: false,
+    photoUserUrl: 'https://gaixinhbikini.com/wp-content/uploads/2022/08/gai-xinh-mac-bikini-mau-do-13.jpg'
+  },
+  {
+    email: 'ainhi201@gmail.com',
+    fullname: 'Kieu Nhi',
+    nickname: 'Kiều Nhi',
+    last_active: Timestamp({ t: 1677408356, i: 26 }),
+    isOnline: false,
+    photoUserUrl: 'https://meliawedding.com.vn/wp-content/uploads/2022/05/gai-xinh-mac-do-thieu-vai-10-1.jpg'
+  },
+  {
+    email: 'thaivanchuc101198@gmail.com',
+    fullname: 'Chuc Thai',
+    nickname: 'Chuc Thai',
+    last_active: Timestamp({ t: 1677408356, i: 27 }),
+    isOnline: false,
+    photoUserUrl: 'https://lh3.googleusercontent.com/a/AGNmyxa6f7pkczjCcX9ccOLrich7ucV1naRKtUceIA-v=s96-c',
+    playerId_Onesignal: ''
+  },
+  {
+    email: 'phuonguyen29011998@gmail.com',
+    fullname: 'Phương Uyên',
+    nickname: 'Phương Uyên',
+    last_active: ISODate("2023-02-26T10:56:54.898Z"),
+    isOnline: true,
+    photoUserUrl: 'https://lh3.googleusercontent.com/a/AGNmyxa8ICYWqMjTHgShob7IXCuTNQ_fYZOkRQwH0TfVQyI=s96-c',
+    playerId_Onesignal: ''
+  },
+  {
+    email: 'lethiphuongnhi.95lhp@gmail.com',
+    fullname: 'Lê Thị Phương Nhi',
+    nickname: 'Lê Thị Phương Nhi',
+    last_active: ISODate("2023-03-18T08:21:33.922Z"),
+    isOnline: true,
+    photoUserUrl: 'https://lh3.googleusercontent.com/a/AGNmyxY3BMTmJpwsScQIx-iehQxRIonUzWxo00LYcJLinQ=s96-c',
+    playerId_Onesignal: 'null'
+  },
+  {
+    email: 'lephuonguyen435@gmail.com',
+    fullname: 'Phương Uyên Lê',
+    nickname: 'Phương Uyên Lê',
+    last_active: ISODate("2023-03-26T12:55:47.328Z"),
+    isOnline: true,
+    photoUserUrl: 'https://lh3.googleusercontent.com/a/AGNmyxYDvSAWBvSsQKXLdlRJkwn1k7o5OzVAaUliTAEB=s96-c'
+  }
+
+]);
+
+db.Users.find({_id: ObjectId('635cf0938aec6c76a1b70d5c')});
+
+db.Users.find({
+    "$or": [{ email: { $regex: /n/ } }, {
+        nickname: { $regex: /n/ }
+    }]
+});
+
+
+
+db.Users.ensureIndex({email: 1})
+         
+                      //Group
+db.Chat_Group.drop()   
+
+db.Chat_Group.find(
+     
+        {
+          "validateGroup.mixName1": "nguyenvanthaibinh2210@gmail.comoh0h_sory_2210@yahoo.com.vn" }
+        
+      
+    );
+  db.Chat_Group.find({
+      $or: [
+        {"validateGroup.mixName1":  "binh@gmail.comnguyenvanthaibinh2210@gmail.com" } ,
+        {"validateGroup.mixName2":  "nguyenvanthaibinh2210@gmail.comoh0h_sory_2210@yahoo.com.vn" },
+      ],
+    });
+
+
+db.Chat_Group.insertMany([{
+  id_chat_group:"",
+  chat_name: "", 
+  member: [ 
+    { email: "oh0h_sory_2210@yahoo.com.vn",
+      nickname: "Hu Binh",
+      photoUserUrl:"https://lh3.googleusercontent.com/a/AEdFTp6zvs4chsoAfu8cUqN-M96cnCSASoq_0djXtHrn=s96-c" 
+      },
+    { email: "nguyenvanthaibinh2210@gmail.com", 
+      nickname:"Bình Nguyễn Văn Thái",
+      photoUserUrl:"https://lh3.googleusercontent.com/a/AEdFTp7vViVrFlmERB5KOsj5gchgtlqC_axRBZYnbrKYFA=s96-c"
+      }
+          ],
+  last_chat_content:"Thái Bình Kêu Bình Hụ",
+  photoGroupChatUrl: "",
+},
+{
+  id_chat_group:"2",
+  chat_name: "", 
+  member: [ 
+    { email: "nguyenvanthaibinh2210@gmail.com", 
+      nickname:"Bình Nguyễn Văn Thái",
+      photoUserUrl:"https://lh3.googleusercontent.com/a/AEdFTp7vViVrFlmERB5KOsj5gchgtlqC_axRBZYnbrKYFA=s96-c"
+      }
+  , { email: "phuonguyen29011998@gmail.com",  
+      nickname: "Phương Uyên",
+      photoUserUrl:"https://lh3.googleusercontent.com/a/AEdFTp62gMGrG-Ov9_ATvKhD96gETkD00kPMsvT3fxsb0-8=s96-c"}
+          ],
+  last_chat_content:"Tối nay ăn gì Iu???",
+  photoGroupChatUrl: "",
+},
+{
+  id_chat_group:"3",
+  chat_name: "", 
+  member: [ 
+    { email: "nguyenvanthaibinh2210@gmail.com", 
+      nickname:"Bình Nguyễn Văn Thái",
+      photoUserUrl:"https://lh3.googleusercontent.com/a/AEdFTp7vViVrFlmERB5KOsj5gchgtlqC_axRBZYnbrKYFA=s96-c"
+      },
+   { email: "phuonguyen29011998@gmail.com",  
+      nickname: "Phương Uyên",
+      photoUserUrl:"https://lh3.googleusercontent.com/a/AEdFTp62gMGrG-Ov9_ATvKhD96gETkD00kPMsvT3fxsb0-8=s96-c"
+      },
+   { email: "oh0h_sory_2210@yahoo.com.vn",
+      nickname: "Hu Binh",
+      photoUserUrl:"https://lh3.googleusercontent.com/a/AEdFTp6zvs4chsoAfu8cUqN-M96cnCSASoq_0djXtHrn=s96-c" 
+      },
+          ],
+  last_chat_content:"Đây là nhóm chát nhá!",
+  photoGroupChatUrl: "",
+}
+]);
+
+
+
+                                  //Chat
+db.Chats.drop()
+//
+db.Chats.find({id_chat_group:'1',
+'to.email': "nguyenvanthaibinh2210@gmail.com"}).sort({'_id': 1}).limit(2)
+
+db.Chats.insertMany([
+{
+  id_chat_group: "1",
+  from: "nguyenvanthaibinh2210@gmail.com",
+  nickname:"Bình Nguyễn Văn Thái",
+  to:[{
+      email: "oh0h_sory_2210@yahoo.com.vn",
+      nickname: "Hu Binh",
+      isSaw: false,
+      seen_at: new Date(),
+    }],
+  send_at: new Date(),
+  type: "text", 
+  content: "Hello Binh Hu!!!"
+},{
+  id_chat_group: "1",
+  from: "oh0h_sory_2210@yahoo.com.vn",
+  nickname:"Hu Binh",
+  send_at: new Date(),
+  type: "text", 
+  content: "Thái Bình Kêu Bình Hụ",
+  to: [
+    {
+      email: "nguyenvanthaibinh2210@gmail.com",
+      nickname:"Bình Nguyễn Văn Thái",
+       isSaw: false,
+      seen_at: new Date(),
+    }
+    
+  ]
+},{
+  id_chat_group: "2",
+  from: "phuonguyen29011998@gmail.com",
+  nickname:"Phương Uyên",
+  send_at: new Date(),
+  type: "text", 
+  content: "Tối nay ăn gì Iu???",
+  to: [
+    {
+      email: "nguyenvanthaibinh2210@gmail.com",
+      nickname:"Bình Nguyễn Văn Thái",
+       isSaw: false,
+      seen_at: new Date(),
+    }
+    
+  ]
+},
+{
+  id_chat_group: "2",
+  from: "nguyenvanthaibinh2210@gmail.com",
+  nickname:"Bình Nguyễn Văn Thái",
+  send_at: new Date(),
+  type: "text", 
+  content: "Đi ăn nhà hàng Seoul đó iu.",
+  to: [
+    {
+      email: "phuonguyen29011998@gmail.com",
+      nickname:"Phương Uyên",
+       isSaw: false,
+      seen_at: new Date(),
+    }
+    
+  ]
+},
+{
+  id_chat_group: "2",
+  from: "phuonguyen29011998@gmail.com",
+  nickname:"Phương Uyên",
+  send_at: new Date(),
+  type: "text", 
+  content: "Oke, rứa iu đãi hí :))",
+  to: [
+    {
+      email: "nguyenvanthaibinh2210@gmail.com",
+      nickname:"Bình Nguyễn Văn Thái",
+       isSaw: false,
+      seen_at: new Date(),
+    }
+    
+  ]
+},
+{
+  id_chat_group: "2",
+  from: "nguyenvanthaibinh2210@gmail.com",
+  nickname:"Bình Nguyễn Văn Thái",
+  send_at: new Date(),
+  type: "text", 
+  content: "Tối qua iu nói iu đãi mà",
+  to: [
+    {
+      email: "phuonguyen29011998@gmail.com",
+      nickname:"Phương Uyên",
+       isSaw: false,
+      seen_at: new Date(),
+    }
+    
+  ]
+},
+{
+  id_chat_group: "2",
+  from: "nguyenvanthaibinh2210@gmail.com",
+  nickname:"Bình Nguyễn Văn Thái",
+  send_at: new Date(),
+  type: "text", 
+  content: "Iu xạo xạo khôn á",
+  to: [
+    {
+      email: "phuonguyen29011998@gmail.com",
+      nickname:"Phương Uyên",
+       isSaw: false,
+      seen_at: new Date(),
+    }
+    
+  ]
+},
+]);
+
+db.Chats.ensureIndex({email: 1,chat_name:1})
+
+db.Chats.find ({ type: "text"} ).pretty();
