@@ -6,7 +6,7 @@ import FormControl from "@mui/material/FormControl";
 import Box from "@mui/material/Box";
 import { useState, useEffect, useRef } from "react";
 import FavoriteRoundedIcon from "@mui/icons-material/FavoriteRounded";
-import { styled } from "@mui/material/styles";
+import { easing, styled } from "@mui/material/styles";
 import SendIcon from "@mui/icons-material/Send";
 import PhotoIcon from "@mui/icons-material/Photo";
 import axios from "axios";
@@ -36,17 +36,19 @@ export default function TextInput({ props }: { props: any }) {
   const [text, setText] = useState("");
   const [isTyping, setIsTyping] = useState(false);
   const textInput = useRef<HTMLInputElement>(null);
+  const checkImg = useRef("");
   const [uploadPercents, setUploadPercent] = useState<any | null>(null);
   const [isUploadImage, setIsUploadImage] = useState(false);
   const { data: session } = useSession();
 
   //TODO: Upload Image API
-  const uploadImageAPI = async (selectedFile: any) => {
+  const uploadImageAPI = async (selectedFile: any, typeImage: string) => {
     try {
       //TODO:Call API to save image to server
 
       const formData = new FormData();
       formData.append("file", selectedFile);
+
       formData.append("upload_preset", "v8xiup5x");
       // formData.append("public_id", groupData.validateGroup);
       setIsUploadImage(true);
@@ -64,8 +66,8 @@ export default function TextInput({ props }: { props: any }) {
           },
         }
       );
-      // setUrlImageAPI(response?.data?.url);
-      updateChatData(response?.data?.url, "image");
+
+      updateChatData(response?.data?.url, "image", typeImage);
       setIsUploadImage(false);
     } catch (err) {
       setUploadPercent("upload fail!!!");
@@ -78,8 +80,12 @@ export default function TextInput({ props }: { props: any }) {
     setIsTyping(false);
   }, [props]);
 
-  const updateChatData = (chatData: any, dataType: string) => {
-    props(chatData, dataType);
+  const updateChatData = (
+    chatData: any,
+    dataType: string,
+    typeImage: string
+  ) => {
+    props(chatData, dataType, typeImage);
   };
 
   // preview upload image
@@ -100,11 +106,17 @@ export default function TextInput({ props }: { props: any }) {
       alert("Size must be <= 10M, now is: " + size + "M");
       return;
     }
-    let objectUrl: any;
-    objectUrl = URL.createObjectURL(e.target.files[0]);
-
+    let objectUrl = new Image();
+    objectUrl.src = URL.createObjectURL(e.target.files[0]);
+    objectUrl.onload = function () {
+      if (objectUrl.naturalWidth > objectUrl.naturalHeight) {
+        checkImg.current = "horizontal";
+      } else {
+        checkImg.current = "vertical";
+      }
+    };
     //Upload API image
-    await uploadImageAPI(e.target.files[0]);
+    await uploadImageAPI(e.target.files[0], checkImg.current);
   };
 
   const keyPress = (e: any) => {
@@ -112,7 +124,7 @@ export default function TextInput({ props }: { props: any }) {
       e.preventDefault();
 
       if (e.target.value != "") {
-        updateChatData(e.target.value, "text");
+        updateChatData(e.target.value, "text", "");
         setText("");
         setIsTyping(false);
       }
@@ -122,11 +134,11 @@ export default function TextInput({ props }: { props: any }) {
     e.preventDefault();
 
     if (e.currentTarget.value == "heart") {
-      updateChatData("❤️", "text");
+      updateChatData("❤️", "text", "");
       textInput.current?.focus();
     }
     if (text.length > 0) {
-      updateChatData(text, "text");
+      updateChatData(text, "text", "");
       setText("");
       setIsTyping(false);
       textInput.current?.focus();

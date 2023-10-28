@@ -47,7 +47,7 @@ export default function Home() {
           </Typography>
           <Typography sx={{ fontSize: "17px" }}>
             {
-              "4.Source Git: https://github.com/NguyenVanThaiBinh/Chat-App-Nextjs-MUI."
+              "4.Source Git: https://github.com/NguyenVanThaiBinh/Code-Chat-App-public"
             }
           </Typography>
         </Grid>

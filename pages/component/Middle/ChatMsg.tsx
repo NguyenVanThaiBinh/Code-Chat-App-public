@@ -85,7 +85,7 @@ export default function ChatMsg(props: any) {
     setChatGroupDataProps(props.groupData);
   }, [props.groupData, session?.user?.email]);
 
-  const handleChangDataTextInput = (chatsData: any, dataType: string) => {
+  const handleChangDataTextInput = (chatsData: any, dataType: string,typeImage: string) => {
     //Check valid token
     if (
       session?.user?.email &&
@@ -109,6 +109,7 @@ export default function ChatMsg(props: any) {
       to: props.groupData?.memberData,
       send_at: new Date(),
       type: dataType,
+      typeImage: typeImage
     });
 
     const callAPItoChatGPT = async (message: any) => {

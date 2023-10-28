@@ -104,9 +104,18 @@ export default function Body() {
   };
 
   useEffect(() => {
-    let intervalForLoadingPage = setTimeout(() => {
-      setIsLoading(false);
-    }, 1 * 1 * 1000);
+    let access_token = localStorage.getItem("access_token") as string;
+    let intervalForLoadingPage: any;
+    if (!access_token) {
+      intervalForLoadingPage = setTimeout(() => {
+        setIsLoading(false);
+      }, 12 * 1 * 1000);
+    } else {
+      intervalForLoadingPage = setTimeout(() => {
+        setIsLoading(false);
+      }, 3 * 1 * 1000);
+    }
+
     return () => {
       clearTimeout(intervalForLoadingPage);
     };

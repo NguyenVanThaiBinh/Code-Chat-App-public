@@ -139,32 +139,69 @@ const StyleSpan4 = styled("div")`
 `;
 
 export default function LoadingPage(props: any) {
+  //----------------------------------------------------------------
+  //TODO:DECLARE AREA
+  //----------------------------------------------------------------
   const [loadingControl, setLoadingControl] = useState(0);
   let firstFiveConversationGroupId = useRef<any>([]);
+  const access_token = useRef("");
   const { data: session } = useSession<any | null>();
   const userEmail = session && session.user ? session.user.email : null;
 
-  //TODO: load 5 chat data
-  const loadFiveUserChatData = async () => {
-    await firstFiveConversationGroupId.current.forEach(
-      (id_chat_group: string) => {
-        fetch(server + `/api/chats/${id_chat_group}`)
-          .then((response) => response.json())
-          .then((chatData) => {
-            localStorage.setItem(id_chat_group, JSON.stringify(chatData));
-          });
-      }
-    );
+  //----------------------------------------------------------------
+  //TODO:FUNCTION AREA
+  //----------------------------------------------------------------
+  const loadAlignItemListData = async () => {
+    if (userEmail) {
+      //TODO:load data for AlignItemList
+      await fetch(server + `/api/groups/${userEmail}`, {
+        method: "GET",
+        headers: {
+          Authorization: access_token.current,
+        },
+      })
+        .then((response) => response.json())
+        .then((data) => {
+          if (data.success == false) {
+            return;
+          }
+          if (data.length > 0) {
+            // save to local storage
+            if (userEmail) {
+              localStorage.setItem(userEmail, JSON.stringify(data));
+              props.handleOnClick("SidebarContainer", "");
+            }
+            //Load first 5 user
+            for (let i = 0; i < 5; i++) {
+              if (data[i] != undefined && data[i] != null) {
+                firstFiveConversationGroupId.current.push(
+                  data[i].id_chat_group
+                );
+              }
+            }
+            //TODO: load 5 chat data
+            firstFiveConversationGroupId.current.forEach(
+              (id_chat_group: string) => {
+                fetch(server + `/api/chats/${id_chat_group}`)
+                  .then((response) => response.json())
+                  .then((chatData) => {
+                    localStorage.setItem(
+                      id_chat_group,
+                      JSON.stringify(chatData)
+                    );
+                  });
+              }
+            );
+          }
+        });
+    }
   };
 
   //TODO: Insert user and playID into DB => get access_token
   async function insertUserToDB(dataUserAPI: any) {
-    // Get access_token
-    let access_token = localStorage.getItem("access_token") as any;
-
     const headers = {
       "Content-Type": "application/json",
-      Authorization: access_token,
+      Authorization: access_token.current,
     };
 
     try {
@@ -177,12 +214,12 @@ export default function LoadingPage(props: any) {
         response.data.access_token != "is already exist" &&
         response.data.success == true
       ) {
+        access_token.current = response.data.access_token;
         localStorage.setItem("access_token", response.data.access_token);
-
         localStorage.setItem("isShowAlert", "false");
-
         props.handleOnClick("SidebarContainer", "", false);
       }
+      loadAlignItemListData();
       if (response.data.success == false) {
         props.handleOnClick("SidebarContainer", "", true);
         return;
@@ -191,6 +228,14 @@ export default function LoadingPage(props: any) {
       console.warn("Insert User fail!");
     }
   }
+  //----------------------------------------------------------------
+  //TODO:USE_EFFECT AREA
+  //----------------------------------------------------------------
+  useEffect(() => {
+    // Perform localStorage action
+    access_token.current = localStorage.getItem("access_token") as any;
+  }, []);
+
   //TODO: Run OneSignal
   useEffect(() => {
     // runOneSignal();
@@ -218,43 +263,6 @@ export default function LoadingPage(props: any) {
       //     insertUserToDB(dataUserAPI);
       //   }
       // });
-    }
-  }, [userEmail]);
-
-  useEffect(() => {
-    // Get access_token
-    let access_token = localStorage.getItem("access_token") as any;
-
-    if (userEmail) {
-      //TODO:load data for AlignItemList
-      fetch(server + `/api/groups/${userEmail}`, {
-        method: "GET",
-        headers: {
-          Authorization: access_token,
-        },
-      })
-        .then((response) => response.json())
-        .then((data) => {
-          if (data.success == false) {
-            return;
-          }
-          if (data.length > 0) {
-            // save to local storage
-            if (userEmail) {
-              localStorage.setItem(userEmail, JSON.stringify(data));
-              props.handleOnClick("SidebarContainer", "");
-            }
-            //Load first 5 user
-            for (let i = 0; i < 5; i++) {
-              if (data[i] != undefined && data[i] != null) {
-                firstFiveConversationGroupId.current.push(
-                  data[i].id_chat_group
-                );
-              }
-            }
-            loadFiveUserChatData();
-          }
-        });
     }
   }, [userEmail]);
 

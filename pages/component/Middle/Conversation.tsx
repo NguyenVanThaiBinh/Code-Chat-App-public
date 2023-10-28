@@ -106,77 +106,32 @@ export default function Conversation({
     if (message.data.result == "Group is inserted successfully!") {
       return;
     }
-    setLoading(true);
-    let localStorageData = [];
-
-    localStorageData = JSON.parse(
-      localStorage.getItem(message.data.id_chat_group) as any
-    );
-
-    if (localStorageData != null) {
-      setChatData(localStorageData);
-
-      // need check only scroll on laptop
-      var width = window.innerWidth > 0 ? window.innerWidth : screen.width;
-      if (width > 767) {
-        setScrolling(true);
-        scrollDownAfter1s();
-      } else {
-        setScrolling(false);
-      }
-      setLoading(false);
-    } else {
-      if (!message.data.id_chat_group) {
-        setLoading(false);
-        return;
-      }
-
-      setLoading(true);
-      fetch(server + `/api/chats/${message.data.id_chat_group}`)
-        .then((response) => response.json())
-        .then((chatData) => {
-          // add photoURL each member group
-          for (let i = 0; i < chatData.length; i++) {
-            for (let j = 0; j < ChatGroupDataProps.memberData.length; j++) {
-              if (chatData[i].from == ChatGroupDataProps.memberData[j].email) {
-                chatData[i].memberURL =
-                  ChatGroupDataProps.memberData[j].photoUserUrl;
-              }
-            }
-          }
-          if (message.data.id_chat_group) {
-            localStorage.setItem(
-              message.data.id_chat_group,
-              JSON.stringify(chatData)
-            );
-          }
-
-          setChatData(chatData);
-          setLoading(false);
-          setScrolling(false);
-        });
-    }
   });
   // TODO: Get Data from ChatMsg Component to load Conversation Data
   useEffect(() => {
+    //When new conversation early return
+    if (ChatGroupDataProps.id_chat_group == "") {
+      setLoading(false);
+      return;
+    }
+    id_chat_group.current = ChatGroupDataProps.id_chat_group;
+    //Set size for ChatGPT
     if (ChatGroupDataProps.memberData[1].email == "You can ask me anything!") {
       setMaxWidthGPT("70%");
     } else {
       setMaxWidthGPT("55%");
     }
-    if (ChatGroupDataProps.id_chat_group !== undefined) {
-      id_chat_group.current = ChatGroupDataProps.id_chat_group;
-    }
-    setLoading(true);
-    let localStorageData = [];
+
+    // setLoading(true);
+    let localStorageData: any;
 
     localStorageData = JSON.parse(
       localStorage.getItem(ChatGroupDataProps.id_chat_group) as any
     );
 
-    if (localStorageData != null) {
+    if (localStorageData) {
       setChatData(localStorageData);
-
+      setLoading(false);
       // need check only scroll on laptop
       var width = window.innerWidth > 0 ? window.innerWidth : screen.width;
       if (width > 767) {
@@ -185,38 +140,34 @@ export default function Conversation({
       } else {
         setScrolling(false);
       }
-      setLoading(false);
-    } else {
-      if (!ChatGroupDataProps.id_chat_group) {
-        setLoading(false);
-        return;
-      }
+    }
 
-      setLoading(true);
-      fetch(server + `/api/chats/${ChatGroupDataProps.id_chat_group}`)
-        .then((response) => response.json())
-        .then((chatData) => {
-          // add photoURL each member group
-          for (let i = 0; i < chatData.length; i++) {
-            for (let j = 0; j < ChatGroupDataProps.memberData.length; j++) {
-              if (chatData[i].from == ChatGroupDataProps.memberData[j].email) {
-                chatData[i].memberURL =
-                  ChatGroupDataProps.memberData[j].photoUserUrl;
-              }
+    fetch(server + `/api/chats/${ChatGroupDataProps.id_chat_group}`)
+      .then((response) => response.json())
+      .then((chatData) => {
+        // add photoURL each member group
+        for (let i = 0; i < chatData.length; i++) {
+          for (let j = 0; j < ChatGroupDataProps.memberData.length; j++) {
+            if (chatData[i].from == ChatGroupDataProps.memberData[j].email) {
+              chatData[i].memberURL =
+                ChatGroupDataProps.memberData[j].photoUserUrl;
             }
           }
-          if (ChatGroupDataProps.id_chat_group) {
-            localStorage.setItem(
-              ChatGroupDataProps.id_chat_group,
-              JSON.stringify(chatData)
-            );
-          }
+        }
+        if (ChatGroupDataProps.id_chat_group) {
+          localStorage.setItem(
+            ChatGroupDataProps.id_chat_group,
+            JSON.stringify(chatData)
+          );
+        }
 
+        if (!localStorageData || chatData.length > localStorageData.length) {
           setChatData(chatData);
-          setLoading(false);
-          setScrolling(false);
-        });
-    }
+        }
+
+        setLoading(false);
+        setScrolling(false);
+      });
   }, [ChatGroupDataProps]);
 
   // TODO: Auto save chat  and update last content after 1s
@@ -308,7 +259,6 @@ export default function Conversation({
     let intervalForSentNotifications = setTimeout(() => {
       sendNotificationFlag.current = true;
     }, 15 * 60 * 1000);
-
     if (message.name == id_chat_group.current) {
       // just save chat data from 1 side
       if (message.data.from == userEmail) {
@@ -399,18 +349,37 @@ export default function Conversation({
                     />
                     {data.type == "image" ? (
                       <>
-                        <Avatar
-                          sx={{
-                            width: 190,
-                            height: 125,
-                            marginTop: "5px",
-                            marginRight: "13px",
-                            borderRadius: "6px 6px 6px 6px",
-                          }}
-                          alt="Image"
-                          imgProps={{ referrerPolicy: "no-referrer" }}
-                          src={data.content}
-                        />
+                        {data.typeImage == "vertical" ? (
+                          <>
+                            <Avatar
+                              sx={{
+                                width: 135,
+                                height: 200,
+                                marginTop: "5px",
+                                marginRight: "13px",
+                                borderRadius: "6px 6px 6px 6px",
+                              }}
+                              alt="Image"
+                              imgProps={{ referrerPolicy: "no-referrer" }}
+                              src={data.content}
+                            />
+                          </>
+                        ) : (
+                          <>
+                            <Avatar
+                              sx={{
+                                width: 200,
+                                height: 135,
+                                marginTop: "5px",
+                                marginRight: "13px",
+                                borderRadius: "6px 6px 6px 6px",
+                              }}
+                              alt="Image"
+                              imgProps={{ referrerPolicy: "no-referrer" }}
+                              src={data.content}
+                            />
+                          </>
+                        )}
                       </>
                     ) : (
                       <>
@@ -431,18 +400,37 @@ export default function Conversation({
                   >
                     {data.type == "image" ? (
                       <>
-                        <Avatar
-                          sx={{
-                            width: 190,
-                            height: 125,
-                            marginTop: "5px",
-                            marginRight: "13px",
-                            borderRadius: "6px 6px 6px 6px",
-                          }}
-                          alt="Image"
-                          imgProps={{ referrerPolicy: "no-referrer" }}
-                          src={data.content}
-                        />
+                        {data.typeImage == "vertical" ? (
+                          <>
+                            <Avatar
+                              sx={{
+                                width: 135,
+                                height: 200,
+                                marginTop: "5px",
+                                marginRight: "13px",
+                                borderRadius: "6px 6px 6px 6px",
+                              }}
+                              alt="Image"
+                              imgProps={{ referrerPolicy: "no-referrer" }}
+                              src={data.content}
+                            />
+                          </>
+                        ) : (
+                          <>
+                            <Avatar
+                              sx={{
+                                width: 200,
+                                height: 135,
+                                marginTop: "5px",
+                                marginRight: "13px",
+                                borderRadius: "6px 6px 6px 6px",
+                              }}
+                              alt="Image"
+                              imgProps={{ referrerPolicy: "no-referrer" }}
+                              src={data.content}
+                            />
+                          </>
+                        )}
                       </>
                     ) : (
                       <>
